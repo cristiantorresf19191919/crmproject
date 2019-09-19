@@ -1,0 +1,170 @@
+<app-header></app-header>
+<!-- main app container -->
+<!-- <plantilla>
+    <plantilla-encabezado>
+        <app-navbar></app-navbar>
+    </plantilla-encabezado>
+    <plantilla-contenido>
+        <br />
+        <form novalidate (ngSubmit)="onSubmit()" [formGroup]="formReg">
+            <p-panel>
+                <p-header>
+                    Regístrese
+                </p-header>
+                <alert></alert>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-12 ui-md-4">
+                        <label aria-required="true">Nombres *</label>
+                        <input id="nombres" type="text" pInputText formControlName="nombres" maxlength="45" required>
+                        <div *ngIf="formReg.get('nombres').invalid && (formReg.get('nombres').dirty || formReg.get('nombres').touched || submitted)">
+                            <div *ngIf="formReg.get('nombres').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese sus nombres"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Apellidos *</label>
+                        <input type="text" pInputText formControlName="apellidos" maxlength="45">
+                        <div *ngIf="formReg.get('apellidos').invalid && (formReg.get('apellidos').dirty || formReg.get('apellidos').touched || submitted)">
+                            <div *ngIf="formReg.get('apellidos').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese sus apellidos"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Número de identificación *</label>
+                        <input type="text" pInputText pKeyFilter="num" formControlName="identificacion" maxlength="10">
+                        <div *ngIf="formReg.get('identificacion').invalid && (formReg.get('identificacion').dirty || formReg.get('identificacion').touched || submitted)">
+                            <div *ngIf="formReg.get('identificacion').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese su número de identificación"></p-message>
+                            </div>
+                            <div *ngIf="formReg.get('identificacion').hasError('existeNumeroDocumento')">
+                                <p-message severity="error" text="El número de identificación ya existe en el sistema."></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Tipo de identificación *</label>
+                        <p-dropdown [options]="tiposIdentificacion" placeholder="Seleccione su tipo de identificación"
+                            optionLabel="nombre" formControlName="tipoIdentificacionId"></p-dropdown>
+                        <div *ngIf="formReg.get('tipoIdentificacionId').invalid && (formReg.get('tipoIdentificacionId').dirty || formReg.get('tipoIdentificacionId').touched || submitted)">
+                            <div *ngIf="formReg.get('tipoIdentificacionId').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese el tipo de identificación"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Fecha de nacimiento *</label>
+                        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="1970:2018"
+                            formControlName="fechaNacimiento" [locale]="es"></p-calendar>
+                        <div *ngIf="formReg.get('fechaNacimiento').invalid && (formReg.get('fechaNacimiento').dirty || formReg.get('fechaNacimiento').touched || submitted)">
+                            <div *ngIf="formReg.get('fechaNacimiento').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese su fecha de nacimiento"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Género *</label>
+                        <p-dropdown [options]="sexos" placeholder="Seleccione su género" optionLabel="nombre"
+                            formControlName="sexoId"></p-dropdown>
+                        <div *ngIf="formReg.get('sexoId').invalid && (formReg.get('sexoId').dirty || formReg.get('sexoId').touched || submitted)">
+                            <div *ngIf="formReg.get('sexoId').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese su género"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Teléfono </label>
+                        <input type="text" pInputText formControlName="telefono" maxlength="15">
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Celular *</label>
+                        <input type="text" pInputText formControlName="celular" maxlength="15">
+                        <div *ngIf="formReg.get('celular').invalid && (formReg.get('celular').dirty || formReg.get('celular').touched || submitted)">
+                            <div *ngIf="formReg.get('celular').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese su número de celular "></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Dirección *</label>
+                        <input type="text" pInputText formControlName="direccion" maxlength="255">
+                        <div *ngIf="formReg.get('direccion').invalid && (formReg.get('direccion').dirty || formReg.get('direccion').touched || submitted)">
+                            <div *ngIf="formReg.get('direccion').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese su dirección"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Nombre de usuario *</label>
+                        <input type="text" pInputText formControlName="nombreUsuario" maxlength="100">
+                        <div *ngIf="formReg.get('nombreUsuario').invalid && (formReg.get('nombreUsuario').dirty || formReg.get('nombreUsuario').touched || submitted)">
+                            <div *ngIf="formReg.get('nombreUsuario').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese su nombre de usuario"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Contraseña *</label>
+                        <input type="password" pPassword pPassword promptLabel="Por favor ingrese su contraseña" weakLabel="Contraseña debil" mediumLabel="Contraseña mediana" strongLabel="Contraseña segura" formControlName="contrasenia" maxlength="50" />
+                        <div *ngIf="formReg.get('contrasenia').invalid && (formReg.get('contrasenia').dirty || formReg.get('contrasenia').touched || submitted)">
+                            <div *ngIf="formReg.get('contrasenia').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese su contraseña"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>confirme la contraseña *</label>
+                        <input type="password" pPassword promptLabel="Por favor ingrese su contraseña" weakLabel="Contraseña debil" mediumLabel="Contraseña mediana" strongLabel="Contraseña segura" formControlName="confirmeContrasenia" maxlength="50" />
+                        <div *ngIf="formReg.get('confirmeContrasenia').dirty || formReg.get('confirmeContrasenia').touched || submitted">
+                            <div *ngIf="formReg.get('confirmeContrasenia').invalid">
+                                <div *ngIf="formReg.get('confirmeContrasenia').hasError('required')">
+                                    <p-message severity="error" text="Se requiere que confirme su contraseña"></p-message>
+                                </div>
+                            </div>
+                            <div *ngIf="formReg.errors?.nomatch && !formReg.get('confirmeContrasenia').invalid">
+                                <p-message severity="error" text="La contraseña y su confimación no coinciden"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-4">
+                        <label>Correo *</label>
+                        <input type="text" pInputText formControlName="correo" maxlength="60">
+                        <div *ngIf="formReg.get('correo').invalid && (formReg.get('correo').dirty || formReg.get('correo').touched || submitted)">
+                            <div *ngIf="formReg.get('correo').hasError('required')">
+                                <p-message severity="error" text="Se requiere que ingrese su correo electrónico"></p-message>
+                            </div>
+                            <div *ngIf="formReg.get('correo').hasError('email')">
+                                <p-message severity="error" text="El correo electrónico debe ser una dirección de correo electrónico válida"></p-message>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-footer>
+                    <button pButton type="submit" [disabled]="loading || !formReg.valid" icon="pi pi-check" label="Registrarse"></button>
+                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    <a [routerLink]="['/login']" class="btn btn-link">Cancelar</a>
+                </p-footer>
+            </p-panel>
+        </form> -->
+<!--
+        <p>
+            Form: {{ formReg.value | json }}
+        </p>
+-->
+
+<!--         <p-toast position="center" key="msgGuardado" [modal]="true" [baseZIndex]="5000" [closable]="false">
+            <ng-template let-message pTemplate="message">
+                <div style="text-align: center">
+                    <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+                    <h3>{{message.detail}}</h3>
+                </div>
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-6">
+                        <button type="button" pButton (click)="aceptarRegistro()" label="Aceptar"></button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-toast>
+    </plantilla-contenido>
+</plantilla> -->

@@ -1,0 +1,54 @@
+
+.slideshow{
+  position: absolute;
+  width: 90%;
+
+  vertical-align: middle;
+  width: 100%;
+
+  min-height: 100%;
+  z-index: -1; // Put the video behind all other elements
+}
+
+
+.content {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  width: 100%;
+  padding: 20px;
+}
+#home{
+position: absolute;
+}
+#myBtn {
+  width: 200px;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  text-decoration: none;
+  background: #000;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+a{
+  font-weight: bolder;
+  letter-spacing: 3px;
+  color: white !important;
+  text-decoration: none;
+  &:hover{
+    color:black !important;
+  }
+}
+
+
+
+#myBtn:hover {
+  background: #ddd;
+  color: black;
+}
+
+.noespacioplz{
+  margin-top: 0 !important;
+}

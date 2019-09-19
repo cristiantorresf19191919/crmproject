@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+/* using Sass */
+@import "scss/myTheme";
+// @import "~@progress/kendo-theme-bootstrap/scss/all";
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+/* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; */
+@font-face {
+    font-family: "Muli-Regular";
+    src: url("/assets/fonts/muli/Muli-Regular.ttf");
+  }
+
+
+   @font-face {
+    font-family: "Muli-SemiBold";
+    src: url("/assets/fonts/muli/Muli-SemiBold.ttf");
+  }
+
+
+  @font-face {
+    font-family: "Poppins-Regular";
+    src: url("/assets/fonts/poppins/Poppins-Regular.ttf");
+  }
+
+
+  @font-face {
+    font-family: "Poppins-Medium";
+    src: url("/assets/fonts/poppins/Poppins-Medium.ttf");
+  }
+
+body {
+    margin: 0;
+    padding: 0;
+
+}

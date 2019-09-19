@@ -1,0 +1,18 @@
+<app-clientes-header></app-clientes-header>
+<br>
+<br>
+
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col bg-dark text-white">
+      <h1> {{nombreUsuario}} Dashboard</h1>
+
+    </div>
+  </div>
+</div>
+
+<div
+    [@routerTransition]="getState(o)">
+    <router-outlet #o="outlet"></router-outlet>
+</div>
+

@@ -1,0 +1,233 @@
+<ng-container *ngIf="clientes; then thenTemplate; else elseTemplate"></ng-container>
+<!-- start then template -->
+<ng-template #thenTemplate class="animated tada">
+    <!--<p-table [columns]="cols" [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15"> -->
+    <!-- Comienze tabla -->
+    <p-table #tt [value]="clientes" [columns]="cols" selectionMode="single" [(selection)]="selectedCustomer"
+        (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10" sortMode="multiple"
+        [multiSortMeta]="multiSortMeta">
+        <ng-template pTemplate="caption">
+            Clientes Registrados en la Plataforma
+
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" style="font-weight:bold !important;"
+                placeholder="Busqueda Global de Clientes" (input)="tt.filterGlobal($event.target.value, 'contains')"
+                style="width:auto">
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <input *ngSwitchCase="'nombre'" pInputText type="text"
+                        (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <input *ngSwitchCase="'correo'" pInputText type="text"
+                        (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <input *ngSwitchCase="'cedula'" pInputText type="text"
+                        (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <input *ngSwitchCase="'celular'" pInputText type="text"
+                        (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    <p-multiSelect *ngSwitchCase="'date'" [options]="meses" defaultLabel="Filtro Fecha"
+                        (onChange)="tt.filter($event.value, col.field, 'in')"></p-multiSelect>
+                    <p-multiSelect *ngSwitchCase="'mes'" [options]="meses" defaultLabel="Filtro Fecha"
+                        (onChange)="tt.filter($event.value, col.field, 'in')"></p-multiSelect>
+                </th>
+            </tr>
+        </ng-template>
+
+        <!-- PTABLE CUERPO -->
+        <ng-template pTemplate="body" let-customer let-columns="columns">
+            <tr [pSelectableRow]="customer">
+                <!--  <td *ngFor="let col of columns">
+                <div *ngIf="customer[col.field] === customer.date; else osinohaga ">
+                    {{customer[col.field] | date}}
+                  </div>
+
+
+
+                  <ng-template #osinohaga >
+                      {{customer[col.field]}}
+                  </ng-template>
+
+            </td> -->
+
+                <td [ngClass]="{'nuevoCliente': customer.nombre}">
+                    {{customer.nombre.charAt(0).toUpperCase() + customer.nombre.slice(1)}} </td>
+                <td> {{customer.correo}}</td>
+                <td> {{customer.cedula}}</td>
+                <td> {{customer.celular}}</td>
+                <td> {{customer.date | date:'medium'  }}</td>
+            </tr>
+        </ng-template>
+        <!-- END OF P-TABLE BODY -->
+        <ng-template pTemplate="paginatorleft" let-state>
+            {{10}}
+
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <button type="button" pButton icon="fa-cloud-upload"></button>
+        </ng-template>
+        <ng-template pTemplate="footer" let-columns>
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{col.header}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-customer>
+            <div>
+                <div>
+                    <button type="button" pButton class="float-left" icon="fa fa-plus" (click)="showDialogToAdd()"
+                        label="Agregar Cliente"></button>
+                </div>
+                <div>
+                    <p class="mr-3">
+                        Hay {{clientes.length}} clientes Registrados</p>
+                </div>
+            </div>
+        </ng-template>
+    </p-table>
+    <!-- fin de tabla -->
+    <!-- comience modal para agregar clientes -->
+    <p-dialog header="Detalles del Cliente" [(visible)]="displayDialog" [responsive]="false" showEffect="shake"
+        [modal]="true" [style]="{width: '60%'}" [dismissableMask]="true" baseZIndex=9999999
+        [maximizable]="true">
+        <div class="ui-g ui-fluid" *ngIf="soloClienteCrud">
+            <div class="ui-g-4">
+                <div *ngIf="soloClienteCrud.image else noHayFoto">
+                    <h5>foto del cliente</h5>
+                    <cl-image [public-id]="soloClienteCrud.image.id"
+                        class="img-responsive bg-danger border shadow-lg w-30">
+                        <cl-transformation height="80" width="40" radius="60"></cl-transformation>
+                        <cl-transformation gravity="north" y="20"></cl-transformation>
+                    </cl-image>
+                </div>
+                <ng-template #noHayFoto>
+                    <label for="foto">El cliente no tiene foto</label>
+                </ng-template>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="Plan" class="font-weight-bold">Plan de Venta</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <p-dropdown [options]="planesVenta" placeholder="Seleccione Plan" pInputText class="ml-4" optionLabel="name" [showClear]="true" [(ngModel)]="soloClienteCrud.plan"></p-dropdown>
+                        
+                    </div>
+                    <div class="ui-g-12">
+                            <p
+                            class="text-nowrap mr-5" 
+                            [ngClass]="{ 'text-danger':soloClienteCrud.plan.name === 'no hay plan', 'text-success animated bounceInRight':soloClienteCrud.plan.name !== 'no hay plan' }"
+                            >Plan Seleccionado: {{soloClienteCrud.plan.name || "Ninguno" }}</p>
+                            <p 
+                            *ngIf="soloClienteCrud.plan.price>0"
+                            class="text-nowrap mr-2" 
+                            [ngClass]="{ 'text-danger':soloClienteCrud.plan.name === 'no hay plan', 'text-success animated bounceInRight':soloClienteCrud.plan.name !== 'no hay plan' }"
+                            >Costo de plan: {{soloClienteCrud.plan.price || 0 | number }}</p>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="Nombre">Nombres</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText class="ml-4 form-control text-nowrap" id="Nombres" [(ngModel)]="soloClienteCrud.nombre">
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="celular">celular</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText class="ml-4 form-control text-nowrap" id="celular" [(ngModel)]="soloClienteCrud.celular">
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="cedula">cedula</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText class="ml-4 form-control text-nowrap" id="cedula" [(ngModel)]="soloClienteCrud.cedula">
+                    </div>
+                </div>
+             
+              
+              
+               
+              
+                
+               
+               
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </p-dialog>
+
+
+
+
+
+    <!-- fin de modal -->
+
+
+
+
+</ng-template>
+<!-- end then template -->
+
+<!-- efecto visual engañoso de carga -->
+<div *ngIf="loadingElegante ">
+    <div class="fondoTransparente ">
+
+
+        <div class="spinner-border text-warning d-flex justify-content-center" role="status">
+            <!-- <i class="pi pi-spin pi-spinner mx-auto position-absolute " style="font-size: 10em; color: orange;"></i> -->
+
+
+            <!-- spinner elegante -->
+
+            <div class="loader">
+                <div class="inner one"></div>
+                <div class="inner two"></div>
+                <div class="inner three"></div>
+                <br><br><br>
+                <h5 style="color:white">Cargando</h5>
+            </div>
+
+
+
+
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+
+</div>
+
+
+<ng-template #elseTemplate>
+
+
+
+
+
+</ng-template>
+
+
+
+<!-- <ng-flash-message></ng-flash-message> -->

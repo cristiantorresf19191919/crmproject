@@ -1,0 +1,48 @@
+
+
+
+<div class="bg-dark text-white mt-1">
+    <h1> DASHBOARD CUSTOMERS</h1>
+</div>
+
+<div *ngIf="picture" class="animated jello" >
+<h3 class="text-center"> Bienvenido {{minombre}}</h3>
+</div>
+<router-outlet></router-outlet>
+<br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 border d-flex justify-content-center flex-column">
+
+      <h4 class="text-info text-center">ingresa o cambia tu foto</h4>
+      <input #imageInput type="file" class="btn btn-outline-dark " (change)="onFileSelected(imageInput)" ><br>
+        
+
+      <button type="button" class="btn btn-primary w-40 align-self-center " (click)="onUpload()" >SUBIR</button>
+
+    </div>
+
+    <div class="col-12 col-md-6 border d-flex justify-content-center">
+      <div *ngIf="picture">
+          <cl-image [public-id]="picture.id" class="img-responsive bg-danger border shadow-lg" >
+              <p><strong>hola {{minombre}} buena foto</strong></p>
+              <cl-transformation height="450" width="350"  radius="60"></cl-transformation>
+              <cl-transformation  gravity="north" y="20"></cl-transformation>
+          </cl-image>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+
+<ng-flash-message></ng-flash-message>

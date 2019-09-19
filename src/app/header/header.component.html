@@ -1,0 +1,269 @@
+<!-- trabajando con un menu bien bonito -->
+
+
+
+<div class="row d-block d-md-none ">
+
+    <div class="viewport">
+
+      <header class="header" role="banner">
+
+          <img
+      class="img-fluid logoa hvr-pop float-left my-3 ml-3"
+      src="assets/logoa.png"
+      [@rubberBand]="condition"
+    />
+
+        <nav id="nav" class="nav" role="navigation" #nav>
+
+          <ul
+            class="nav__menu"
+
+            id="menu"
+            tabindex="-1"
+            aria-label="main navigation"
+            hidden
+            #menu
+          >
+            <li class="nav__item text-center mr-3">
+              <a
+               [routerLink]="['/home']"
+               routerLinkActive="active-link"
+                class="nav__link animated aa bounceInRight  "
+                #aa
+                >Home</a
+              >
+            </li>
+            <li class="nav__item text-center mr-3">
+              <a
+                [routerLink]="['/registro']"
+                routerLinkActive="active-link"
+                href="#"
+                class="nav__link animated bb delay-p3s"
+                #bb
+                >Registrate</a
+              >
+            </li>
+            <li class="nav__item text-center mr-3 float-left">
+              <a
+                [routerLink]="['/login']"
+                routerLinkActive="active-link"
+                href="#"
+                class="nav__link animated cc delay-p5s"
+                #cc
+                >Inicia Sesión</a
+              >
+            </li>
+            <li class="nav__item text-center mr-3 float-left ">
+              <a href="#" class="nav__link animated dd delay-p7s" #dd
+                >Práctica Libre</a
+              >
+            </li>
+            <li class="nav__item text-center mr-3 float-left">
+              <a href="#" class="nav__link animated ee delay-p9s " #ee
+                >Cursos y Entrenamiento</a
+              >
+            </li>
+            <li class="nav__item text-center mr-3 float-left">
+              <a href="#" class="nav__link animated delay-p11s" #ff
+                >Escala Piedra</a
+              >
+            </li>
+            <li class="nav__item text-center mr-3 float-left">
+              <a href="#" class="nav__link animated delay-p13s " #gg
+                >Contáctanos</a
+              >
+            </li>
+          </ul>
+
+
+          <a
+            href="#nav"
+            class="nav__toggle"
+            role="button"
+            aria-expanded="false"
+            aria-controls="menu"
+            (click)="menuToggleClick($event)"
+            #menuToggle
+          >
+            <svg
+              class="menuicon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="50"
+              height="50"
+              viewBox="0 0 50 50"
+            >
+              <title>Toggle Menu</title>
+              <g>
+                <line
+                  class="menuicon__bar"
+                  x1="13"
+                  y1="16.5"
+                  x2="37"
+                  y2="16.5"
+                />
+                <line
+                  class="menuicon__bar"
+                  x1="13"
+                  y1="24.5"
+                  x2="37"
+                  y2="24.5"
+                />
+                <line
+                  class="menuicon__bar"
+                  x1="13"
+                  y1="24.5"
+                  x2="37"
+                  y2="24.5"
+                />
+                <line
+                  class="menuicon__bar"
+                  x1="13"
+                  y1="32.5"
+                  x2="37"
+                  y2="32.5"
+                />
+                <circle class="menuicon__circle" r="23" cx="25" cy="25" />
+              </g>
+            </svg>
+          </a>
+
+
+          <div class="splash" (click)="splashClick($event)" #splash></div>
+        </nav>
+      </header>
+      
+      <img
+      class="img-fluid logo-banner d-none d-sm-block hvr-wobble-skew position-relative"
+        src="assets/bannerlogo.png"
+        alt="Responsive image"
+      />
+
+
+        <img
+          src="assets/logosm.png"
+          class="img-fluid d-block d-sm-none small-banner shadow-lg animated pulse"
+          alt="Responsive image"
+        />
+
+    </div>
+  <!--  fin col 12 -->
+</div>
+
+<!-- FIN trabajando con un menu bien bonito -->
+
+<div class="container-fluid d-none d-md-block">
+  <div class="espacio d-none d-md-block"></div>
+
+
+  <div class="row menup">
+    <div class="col-12">
+      <div class="navbar navbar-expand-md navbar-dark bg-dark shadow-lg menupI">
+        <a href="#" class="navbar-brand">
+          <img
+            class="img-fluid logoa hvr-pop"
+            src="assets/logoa.png"
+            [@rubberBand]="condition"
+          />
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            
+            <nav class="cl-effect-10 d-flex flex-column flex-sm-row">
+              <li class="nav items negrita">
+                <a
+                  routerLink="/home"
+                  routerLinkActive="active-link"
+                  class="nav-link text-white "
+                  data-hover="Home"
+                  ><span>Home</span>
+                </a>
+              </li>
+
+              <li class="nav items negrita">
+                <a
+                  routerLink="/registro"
+                  routerLinkActive="active-link"
+                  class="nav-link text-white "
+                  data-hover="Registrate"
+                  ><span>Registrate</span></a
+                >
+              </li>
+
+              <li class="nav items negrita">
+                <a
+                  routerLink="/login"
+                  routerLinkActive="active-link"
+                  class="nav-link text-white "
+                  data-hover="Inicia Sesión"
+                  ><span>Inicia Sesión</span></a
+                >
+              </li>
+
+              <li class="nav items negrita">
+                <a
+                  href=""
+                  routerLinkActive="active-link"
+                  class="nav-link text-white "
+                  data-hover="Práctica Libre"
+                  ><span>Práctica Libre</span></a
+                >
+              </li>
+
+              <li class="nav items negrita">
+                <a
+                  href=""
+                  routerLinkActive="active-link"
+                  class="nav-link text-white"
+                  data-hover="Cursos y Entrenamiento"
+                  ><span>Cursos y Entrenamiento</span></a
+                >
+              </li>
+
+              <li class="nav items negrita">
+                <a
+                  href=""
+                  routerLinkActive="active-link"
+                  class="nav-link text-white "
+                  data-hover="Escala Piedra"
+                  ><span>Escala Piedra</span></a
+                >
+              </li>
+
+              <li class="nav items negrita">
+                <a
+                  href="#contacto"
+                  routerLinkActive="active-link"
+                  class="nav-link text-white"
+                  data-hover="Contáctanos"
+                  ><span>Contáctanos</span></a
+                >
+              </li>
+            </nav>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<div class="row  arribanoespacio">
+  <div class="col-12  ">
+    <img
+    class="img-fluid logo-banner d-none d-md-block hvr-wobble-skew"
+      src="assets/bannerlogo.png"
+      alt="Responsive image"
+    />
+  </div>
+</div>

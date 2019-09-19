@@ -1,0 +1,117 @@
+<app-header></app-header>
+<div class="wrapper ">
+  <div class="inner ">
+    <div class="yipee    animated bounce hvr-grow">
+      <h3 class=" text-white bg-gradient-dark  ">Inicia Sesión</h3>
+    </div>
+    <br />
+
+    <form
+      (submit)="go()"
+      [formGroup]="LoginDaddy"
+      class=" animated bounce backycracky"
+    >
+      <div class="form-row ">
+        <div class="form-wrapperas mt-1 primerElemento">
+          <label for="" class="hvr-wobble-horizontal">Correo </label>
+          <input
+            type="text"
+            class="form-control "
+            placeholder="Correo"
+            name="Email"
+            formControlName="Email"
+            required
+            [ngClass]="{'is-invalid': Emailgetter.errors?.correoExiste}"
+          />
+        </div>
+        <!-- mensaje validacion Correo -->
+        <div
+          *ngIf="
+            Emailgetter.invalid &&
+            (Emailgetter.dirty || Emailgetter.touched)
+          "
+        >
+          <div *ngIf="Emailgetter.errors.tieneArroba" class="animated pulse">
+            <p-message severity="info" text="Te falto poner Arroba"></p-message>
+          </div>
+          <div *ngIf="Emailgetter.errors.required" class="animated pulse">
+            <p-message
+              severity="info"
+              text="Ingresa tu Email por favor..!"
+            ></p-message>
+          </div>
+          <div *ngIf="Emailgetter.errors?.correoExiste" class="animated pulse">
+            <p-message
+              severity="info"
+              text="El correo no se encuentra registrado aun en la base de datos"
+            >
+            </p-message>
+          </div>
+          <div *ngIf="Emailgetter.errors?.serverError" class="animated pulse">
+            <p-message
+              severity="info"
+              text="Problemas de respuesta del servidor"
+            >
+            </p-message>
+          </div>
+        </div>
+        <!-- fin de mensaje validacion correo -->
+
+        <div class="form-wrapperas mt-1">
+          <label for="" class="hvr-wobble-horizontal">Contraseña</label>
+          <input type="password" class="form-control" placeholder="Contraseña"
+          formControlName="Password" required>
+        </div>
+
+        <div class="sin-clase">
+
+
+          <div *ngIf="recordarD">
+            <label for="" class="mt-1 d-block"
+              >el estado es => {{ recordarD.toString() }}</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <button data-text="LogIn" type="submit">
+        <span>Entrar</span></button>
+
+      <ng-flash-message></ng-flash-message>
+    </form>
+    <button data-text="INSTRUCCIONES" type="submit" (click)="Instrucciones()" [ngStyle]="{'background': '#333' }">
+      <span>INSTRUCCIONES</span>
+    </button>
+
+
+  </div>
+</div>
+
+
+
+<div class="loading">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+      <h3>
+        Loading...
+      </h3>
+      <button (click)="showAlert()">
+        Click me!
+      </button>
+    </div>
+  </ng-template>
+
+  <ngx-loading
+    [show]="loading"
+    [config]="{
+      animationType: ngxLoadingAnimationTypes.chasingDots,
+      primaryColour: primaryColour,
+      secondaryColour: secondaryColour,
+      fullScreenBackdrop: fullscreenloadingdecision,
+      backdropBorderRadius: radio,
+      backdropBackgroundColour: colorback
+    }"
+    [template]="loadingTemplate"
+  ></ngx-loading>
+</div>
+<app-footer></app-footer>

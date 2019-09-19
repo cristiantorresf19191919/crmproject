@@ -1,0 +1,53 @@
+
+<div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col bg-dark text-white text-center">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <div *ngIf="!userId" class="form-box">
+              <h3>Join room</h3>
+              <small>Pick a username to join a ng-chat node.js room. Hint: Try different browsers or incognito tabs.</small>
+              <form #chatInfoForm="ngForm" (ngSubmit)="joinRoom()">
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" id="name"
+                         required
+                         [(ngModel)]="username" name="name"
+                         #name="ngModel">
+
+                  <button type="submit" class="btn btn-success" [disabled]="!chatInfoForm.form.valid">Join</button>
+              </form>
+          </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <ng-chat class="d-none d-md-block" *ngIf="userId" [adapter]="adapter" [userId]="userId" [historyEnabled]="false" [fileUploadUrl]="'https://servidor-tigre.herokuapp.com/uploadFile'" [theme]="'dark-theme'"></ng-chat>
+
+  <div class="col-12 col-md-6 contenedorChat border border-primary" id="ecran" #scrollMe>
+ <ng-container *ngFor="let message of mensajesbot | async">
+   <div class="message" [ngClass]="{from: message.sentBy === 'bot',
+                                      to: message.sentBy === 'user'}">
+
+      {{message.content}}
+   </div>
+
+
+ </ng-container>
+</div>
+
+<label for="nameField "> Tu Mensaje</label>
+
+<mat-form-field class="d-inline-block m-3">
+    <input matInput type="text" placeholder="chatbot" (keyup.enter)="sendMessage()" [(ngModel)]="formValue">
+  </mat-form-field>
+
+<!-- <input [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text" placeholder="CHATBOT"><br> -->
+<button class="mt-0" (click)="sendMessage()" data-text="Enviar" type="submit">
+    <span>Enviar</span></button>
+
+
